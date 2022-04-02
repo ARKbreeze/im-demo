@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <h2>{{ isLogin ? `accid : ${accid}` : 'Login' }}</h2>
+    <button v-if="isLogin" @click="IMlogout">登出</button>
 
-    <div class="login" v-if="!isLogin">
+    <div class="login">
       <label for="">accid <input type="text" v-model="accid" /></label>
       <br />
       <label for=""> token <input type="text" v-model="token" /></label>
@@ -14,6 +15,7 @@
 
 <script>
   import APPConfig from '../config/config';
+  // import NIMSDK from '../sdk/NIM_Web_NIM_v9.0.1';
   import NIMSDK from 'nim-web-sdk-ng';
   import RTCSDK from 'nertc-web-sdk';
   export default {
@@ -41,17 +43,29 @@
           appkey: APPConfig.AppKey,
           account: this.accid,
           token: this.token,
-          debugLevel: false,
+          debugLevel: 'error',
         });
+
+        // 登录
         nim.on('logined', () => {
           this.isLogin = true;
           console.log('login');
         });
 
+        //
+        nim.on('disconnect', () => {
+          this.isLogin = false;
+          console.log('disconnection');
+        });
         this.nim = nim;
         await nim.connect();
       },
       rtcInit() {},
+
+      // 退出登录
+      IMlogout() {
+        this.nim?.disconnect();
+      },
     },
     mounted() {
       // this.init();
