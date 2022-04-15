@@ -1,25 +1,21 @@
 <template>
   <div id="app">
-  <HelloWorldVue key="1"></HelloWorldVue>
-  <HelloWorldVue key="2"></HelloWorldVue>
+    <HelloWorldVue key="1"></HelloWorldVue>
   </div>
 </template>
 
 <script>
-import HelloWorldVue from './components/HelloWorld.vue';
+  import HelloWorldVue from './components/HelloWorld.vue';
   export default {
     name: 'App',
-    components : {
-      HelloWorldVue 
+    components: {
+      HelloWorldVue,
     },
     data() {
-      return {
-      };
+      return {};
     },
     methods: {
-      init() {
-
-      },
+      init() {},
     },
     mounted() {
       this.init();
